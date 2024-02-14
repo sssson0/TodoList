@@ -4,7 +4,16 @@ let taps = document.querySelectorAll(".task-taps div" );
 let taskList = [];
 let mode ="all";
 let filterList = [];
+let underLine = document.getElementById("under-line");
+
+
 addButton.addEventListener('click',addTask);
+
+taskInput.addEventListener("keydown", function (event) {
+    if (event.keyCode === 13) {
+    addTask(event);
+    }
+    });
 
 for(let i= 1; i < taps.length; i++){
     taps[i].addEventListener("click",function(event){
@@ -18,6 +27,8 @@ function addTask(){
         isComplete : false
     }
     taskList.push(task);
+    
+    taskInput.value = "";
     console.log(taskList);
     render();
 }
@@ -37,16 +48,16 @@ function render(){
             resultHTML += `<div class="task">
         <div class="task-done">${list[i].taskContent}</div>
         <div>
-            <button onclick="toggleComplete('${list[i].id}')">check</button>
-            <button onclick="deleteTask('${list[i].id}')">delete</button>
+            <button onclick="toggleComplete('${list[i].id}')"><i class="fa-solid fa-check"></i></button>
+            <button onclick="deleteTask('${list[i].id}')"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>`;
         } else{
         resultHTML += `<div class="task">
         <div>${list[i].taskContent}</div>
         <div>
-            <button onclick="toggleComplete('${list[i].id}')">check</button>
-            <button onclick="deleteTask('${list[i].id}')">delete</button>
+            <button onclick="toggleComplete('${list[i].id}')"><i class="fa-solid fa-check"></i></button>
+            <button onclick="deleteTask('${list[i].id}')"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>`;
         }
@@ -62,7 +73,7 @@ function toggleComplete(id){
             break;
         }
     }
-    render();
+    filter();
     console.log(taskList)
 }
 
@@ -70,36 +81,44 @@ function deleteTask(id){
     for(let i = 0; i < taskList.length;i++){
         if(taskList[i].id ==id){
             taskList.splice(i,1);
-            break;
+            
         }
     }
-    render();
+    filter();
     console.log(taskList)
 }
 
 function filter(event){
-    mode = event.target.id;
+    
+    if (event) {
+        mode = event.target.id;
+        underLine.style.width = event.target.offsetWidth + "px";
+        underLine.style.left = event.target.offsetLeft + "px";
+        underLine.style.top = event.target.offsetTop + (event.target.offsetHeight - 4) + "px";
+        }
     filterList = [];
-    if(mode === "all"){
-        render();
-    } else if(mode === "ongoing"){
+    // if(mode === "all"){
+    //     render();
+    // } else 
+    if(mode === "ongoing"){
         for(let i = 0; i<taskList.length; i++){
             if(taskList[i].isComplete === false){
                 filterList.push(taskList[i]);
             }
         }
-        render()
-        // console.log('ss',filterList)
+        // render()
     } else if(mode === "done"){
         for(let i = 0; i<taskList.length; i++){
-            if(taskList[i].isComplete === true){
+            if(taskList[i].isComplete){
                 filterList.push(taskList[i]);
             }
         }
-        render();
+        
     }
+    render();
 }
 
 function randomIdGenerate(){
     return '_' + Math.random().toString(36).substring(2.9);
 }
+

@@ -6,31 +6,54 @@ body{
     /* height: 100vh; */
 }
 .container{
-    background-color: white;
+    
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 30%;
     min-height: 100vh;
     box-shadow: white 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
+h2{
+    color: white;
+    padding-top: 150px;
+}
+#tesk-input{
+    border-radius: 20px;
+    border: none;
+    margin: 20px 0;
+    
+}
+#add-button{
+    color: yellow;
+    border: none;
+    background: none;
+}
+#add-button:hover{
+    transform: rotate( 180deg );
 
+}
 .tesk-area{
-    border: 1px solid lightgray;
+    
 }
 .task-taps{
     display: flex;
-    border-bottom: 1px solid lightgray;
+    
     position: relative;
 }
 
 .task-taps div{
     padding: 10px;
+    color: white;
 }
+
 #under-line{
-    height: 4px;
-    background-color: aqua;
+    height: 2px;
+    background-color: yellow;
     position: absolute;
     width: 48px;
     left: 0;
     top: 40px;
     padding: 0;
+    transition: 0.3s;
 
 }
 .task{
@@ -42,8 +65,22 @@ body{
     text-decoration: line-through;
     background-color: lightgrey;
     
+    
 }
 
 .task-taps div{
     cursor: pointer;
+}
+
+#task-board div{
+    color: white;
+}
+#task-board button{
+    color: yellow;
+    background: none;
+    border: none;
+}
+
+#task-board button:hover{
+    transform: rotate( 45deg );
 }
